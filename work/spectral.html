@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spectral Path Tracer · Olivia Doman</title>
+<meta name="description" content="A GPU path tracer that renders real light dispersion">
+<meta property="og:title" content="Spectral Path Tracer · Olivia Doman">
+<meta property="og:description" content="A GPU path tracer that renders real light dispersion">
+<meta property="og:image" content="../assets/img/parallax-poster.jpg">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#16170f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../"><img src="../assets/img/logo-cream.svg" alt="" width="34" height="30">Olivia Doman</a>
+<nav class="nav-links" aria-label="Main"><a href="../#work" aria-current="page">Work</a><a href="../#about">About</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a><a href="../#contact">Contact</a></nav>
+</div></header>
+
+<main class="wrap"><div class="p-head"><a class="back" href="../#work">Back to all work</a><h1>Spectral Path Tracer</h1><p class="p-summary">Most renderers treat light as a single RGB color, which makes rainbows and prism effects impossible. We extended a GPU path tracer to trace individual wavelengths of light instead.</p></div>
+<div class="p-meta"><div><span>Course</span><span>CS 248A, final project</span></div><div><span>Team</span><span>With Daniel Reichfeld</span></div><div><span>Tools</span><span>Slang, GPU path tracing</span></div></div>
+<div class="frame ratio-wide contain"><img src="../assets/img/prism.jpg" alt="Rainbow fringing through a glass prism" loading="lazy"></div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:20px"></div>
+<div class="p-body"><section class="p-section"><h2>What it does</h2><div class="prose"><ul><li><strong>Per-ray wavelength sampling.</strong> Each ray carries one wavelength between 380 and 700nm, kept monochromatic end to end.</li><li><strong>Dispersion.</strong> Glass index of refraction varies with wavelength using the Cauchy equation, n(λ) = A + B/λ².</li><li><strong>Spectral to RGB.</strong> CIE 1931 color matching functions convert each sample to sRGB, keeping negative values until tone mapping so they cancel correctly.</li><li><strong>Runtime toggle.</strong> Switch between spectral and RGB rendering without recompiling.</li></ul></div></section><section class="p-section"><h2>Results</h2><div class="prose"><div class="gallery"><figure><div class="frame ratio-square contain"><img src="../assets/img/caustic.jpg" alt="Rainbow caustics: light dispersed through glass onto the ground, up to 10 refraction bounces" loading="lazy"></div><figcaption>Rainbow caustics: light dispersed through glass onto the ground, up to 10 refraction bounces</figcaption></figure><figure><div class="frame ratio-square contain"><img src="../assets/img/sphere.jpg" alt="Chromatic aberration along a glass sphere, 1024 samples per pixel" loading="lazy"></div><figcaption>Chromatic aberration along a glass sphere, 1024 samples per pixel</figcaption></figure><figure><div class="frame ratio-square contain"><img src="../assets/img/prism-direct.jpg" alt="Prism under direct light" loading="lazy"></div><figcaption>Prism under direct light</figcaption></figure><figure><div class="frame ratio-square contain"><img src="../assets/img/sphere-spectral.jpg" alt="Spectral glass sphere" loading="lazy"></div><figcaption>Spectral glass sphere</figcaption></figure></div></div></section><section class="p-section"><h2>Performance</h2><div class="prose"><p>The spectral path adds almost nothing per ray: one Cauchy evaluation and one color table lookup. The real cost is samples. Each sample now carries one wavelength instead of full RGB, so clean diffuse surfaces need about 1024 samples per pixel and clean glass caustics need 2048 to 4096.</p></div></section></div>
+<div style="margin-top:clamp(48px,6vw,72px)"><div class="btn-row"><a class="btn solid" href="https://github.com/oliviadoman/Spectral_Path_Tracer">View on GitHub</a><a class="btn" href="https://github.com/oliviadoman/Spectral_Path_Tracer/blob/main/Spectral_PathTracer_WriteUp.pdf">Read the write-up</a></div></div>
+<nav class="next" aria-label="More projects"><a class="btn" href="../#work">All work</a><a class="next-link" href="yarn.html"><span class="muted" style="font-size:13px">Next project</span><span class="next-title">Crocheted Yarn Sim</span></a></nav>
+</main>
+<footer class="footer" id="contact"><div class="wrap footer-inner">
+<div style="display:flex;flex-direction:column;gap:8px"><img class="footer-logo" src="../assets/img/logo-cream.svg" alt="Olivia Doman monogram" width="54" height="48"><h2>Let's make something.</h2><span class="email">olivia.d.doman@gmail.com</span></div>
+<div class="footer-links"><a href="https://www.linkedin.com/in/oliviadoman/">LinkedIn</a><a href="https://github.com/oliviadoman">GitHub</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a></div>
+</div></footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

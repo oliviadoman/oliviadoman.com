@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pupper Pickleball Assistant · Olivia Doman</title>
+<meta name="description" content="A quadruped robot that collects pickleballs on a voice command, then comes to find you">
+<meta property="og:title" content="Pupper Pickleball Assistant · Olivia Doman">
+<meta property="og:description" content="A quadruped robot that collects pickleballs on a voice command, then comes to find you">
+<meta property="og:image" content="../assets/img/parallax-poster.jpg">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#16170f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../"><img src="../assets/img/logo-cream.svg" alt="" width="34" height="30">Olivia Doman</a>
+<nav class="nav-links" aria-label="Main"><a href="../#work" aria-current="page">Work</a><a href="../#about">About</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a><a href="../#contact">Contact</a></nav>
+</div></header>
+
+<main class="wrap"><div class="p-head"><a class="back" href="../#work">Back to all work</a><h1>Pupper Pickleball Assistant</h1><p class="p-summary">A pickleball assistant built on Stanford's Pupper quadruped robot. Say "Pupper, retrieve" and it searches for every ball on the court, scoops each one into a rolling collector cage, then turns to find you and brings them back.</p></div>
+<div class="p-meta"><div><span>Course</span><span>CS 123, robotics</span></div><div><span>Team</span><span>Avery Voss, Olivia Doman, Will Jenkins</span></div><div><span>Tools</span><span>ROS 2, Python, YOLOv5 on a Hailo accelerator, OpenAI Realtime API</span></div><div><span>Year</span><span>2025</span></div></div>
+<div class="frame ratio-16x9 "><video data-loop muted loop playsinline preload="none" poster="../assets/img/pupper-poster.jpg" aria-label="Silent loop"><source src="../assets/video/pupper.mp4" type="video/mp4"></video></div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:20px"></div>
+<div class="p-body"><section class="p-section"><h2>The system</h2><div class="prose"><p>Pupper runs three pieces that talk to each other over ROS 2:</p><ul><li><strong>Vision.</strong> Each camera frame is unwrapped from fisheye to equirectangular, then YOLOv5 runs on a Hailo AI accelerator on the robot, detecting balls and people and publishing their bounding boxes.</li><li><strong>Behavior.</strong> A state machine running at 10 Hz turns those detections into motion commands.</li><li><strong>Voice.</strong> Microphone audio streams to OpenAI's Realtime API, along with a camera snapshot for context. The model replies with a fixed set of action phrases, so "retrieve balls" becomes one clear command the robot can act on.</li></ul></div></section><section class="p-section"><h2>How it decides what to do</h2><div class="prose" style="max-width:none"><div class="table-wrap"><table><thead><tr><th>State</th><th>What Pupper does</th><th>Moves on when</th></tr></thead><tbody><tr><td>Search</td><td>Turns in place at 0.5 rad/s, toward the side it last saw a ball</td><td>A ball appears</td></tr><tr><td>Track</td><td>Walks at 0.3 m/s while a proportional controller keeps the ball centered</td><td>The ball reaches the bottom of the frame</td></tr><tr><td>Collect</td><td>Walks forward for 2.5 seconds, rolling the ball into the collector cage it pushes</td><td>Time is up, then it searches again</td></tr><tr><td>Hand off</td><td>After 15 seconds with no ball in sight, decides it has found them all and barks</td><td>Switches to tracking a person</td></tr><tr><td>Follow</td><td>Finds and walks toward the nearest person</td><td>The person fills 60% of the frame, then it stops</td></tr></tbody></table></div><p>To keep it locked onto the same ball when several are in view, it always picks the detection closest to where its target was in the last frame.</p></div></section><section class="p-section"><h2>Watch a full run</h2><div class="prose" style="max-width:none"><div class="frame ratio-16x9"><video controls playsinline preload="none" poster="../assets/img/pupper-full-poster.jpg"><source src="../assets/video/pupper-full.mp4" type="video/mp4"></video></div><p class="muted" style="font-size:14px">Unedited, about a minute and a half: searching, collecting three balls, then bringing them back.</p><div class="gallery"><figure><div class="frame ratio-16x9 "><video data-loop muted loop playsinline preload="none" poster="../assets/img/pupper-return-poster.jpg" aria-label="Silent loop"><source src="../assets/video/pupper-return.mp4" type="video/mp4"></video></div><figcaption>Bringing the full cage back to a person</figcaption></figure><figure><div class="frame ratio-16x9 "><video data-loop muted loop playsinline preload="none" poster="../assets/img/pupper-poster.jpg" aria-label="Silent loop"><source src="../assets/video/pupper.mp4" type="video/mp4"></video></div><figcaption>Turning toward a ball and scooping it into the cage</figcaption></figure></div></div></section><section class="p-section"><h2>Tuning it on the court</h2><div class="prose"><p>Early versions overshot the ball, so we slowed tracking from 0.75 to 0.3 m/s and tuned the steering gain until it held a ball steadily in the center. Detection on the robot has to be fast enough to keep up with walking, which is why it runs on the Hailo accelerator instead of the main processor.</p><p>Pupper also has a bit of personality: it barks when it starts and when it finishes, and can wiggle and bob on command.</p></div></section></div>
+<div style="margin-top:clamp(48px,6vw,72px)"><div class="btn-row"><a class="btn solid" href="https://github.com/oliviadoman/Pupper_Pickerupper-CS248a-">View on GitHub</a></div></div>
+<nav class="next" aria-label="More projects"><a class="btn" href="../#work">All work</a><a class="next-link" href="handyreader.html"><span class="muted" style="font-size:13px">Next project</span><span class="next-title">HandyReader</span></a></nav>
+</main>
+<footer class="footer" id="contact"><div class="wrap footer-inner">
+<div style="display:flex;flex-direction:column;gap:8px"><img class="footer-logo" src="../assets/img/logo-cream.svg" alt="Olivia Doman monogram" width="54" height="48"><h2>Let's make something.</h2><span class="email">olivia.d.doman@gmail.com</span></div>
+<div class="footer-links"><a href="https://www.linkedin.com/in/oliviadoman/">LinkedIn</a><a href="https://github.com/oliviadoman">GitHub</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a></div>
+</div></footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

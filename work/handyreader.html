@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HandyReader · Olivia Doman</title>
+<meta name="description" content="American Sign Language to English subtitles, from hand keypoints">
+<meta property="og:title" content="HandyReader · Olivia Doman">
+<meta property="og:description" content="American Sign Language to English subtitles, from hand keypoints">
+<meta property="og:image" content="../assets/img/parallax-poster.jpg">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#16170f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../"><img src="../assets/img/logo-cream.svg" alt="" width="34" height="30">Olivia Doman</a>
+<nav class="nav-links" aria-label="Main"><a href="../#work" aria-current="page">Work</a><a href="../#about">About</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a><a href="../#contact">Contact</a></nav>
+</div></header>
+
+<main class="wrap"><div class="p-head"><a class="back" href="../#work">Back to all work</a><h1>HandyReader</h1><p class="p-summary">An end-to-end system that turns signed American Sign Language sentences into English subtitles. It tracks the hands, recognizes each signed word with a recurrent network, then uses a language model to turn the words into a fluent sentence.</p></div>
+<div class="p-meta"><div><span>Course</span><span>CS 231N, Deep Learning for Computer Vision</span></div><div><span>Team</span><span>Olivia Doman, Arunima Srivastav, Daniel Reichfeld</span></div><div><span>My part</span><span>Video segmentation pipeline and pose model evaluation</span></div><div><span>Tools</span><span>PyTorch, MediaPipe Hands, LLaMA 3.2</span></div><div><span>Year</span><span>2025</span></div></div>
+<div class="frame ratio-16x9 "><img src="../assets/img/handyreader-tile.svg" alt="Diagram of the 21 hand keypoints HandyReader tracks" loading="lazy"></div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:20px"></div>
+<div class="p-body"><section class="p-section"><h2>Results</h2><div class="prose"><div class="callout"><span class="eyebrow">Word recognition</span><span class="big">75% top-1 accuracy across a 2,000 sign vocabulary.</span><span class="soft" style="font-size:14px">78.8% at the best validation epoch. End to end, on 100 test sentences, translations kept the meaning with a bag-of-words F1 of 0.68.</span></div><p>Most prior work recognizes fingerspelled letters or a few dozen signs. HandyReader works at the word level from continuous video, which is what full sentence translation needs.</p></div></section><section class="p-section"><h2>The pipeline</h2><div class="prose"><ul><li><strong>Segment.</strong> A signed sentence video is split into word-level clips.</li><li><strong>Track.</strong> MediaPipe Hands finds the hands, the frame is cropped dynamically around them, and 21 3D keypoints are extracted per frame.</li><li><strong>Recognize.</strong> A GRU classifies each clip's keypoint sequence into an ASL gloss, the written label for a sign.</li><li><strong>Translate.</strong> LLaMA 3.2 turns the gloss sequence into an English sentence, so <strong>STORE I GO YESTERDAY</strong> becomes <strong>"I went to the store yesterday."</strong></li></ul></div></section><section class="p-section"><h2>The model</h2><div class="prose"><p>Each clip is 32 frames of 21 joints in 3D, flattened to 63 values per frame. A two-layer GRU with 128 hidden units reads the sequence, and its final hidden state goes through batch normalization, dropout, and a linear layer to pick one of 2,000 signs.</p><p>We chose a GRU because signs are defined by motion over time, and GRUs capture that while staying lighter and faster to train than LSTMs. It clearly beat a 1D convolutional baseline.</p><p>The dataset has 60,000 sequences, balanced at 40 training, 5 validation, and 5 test samples per sign. To make the model robust to different signers, training data was augmented with jitter, noise, spatial shifts, and time warping between 0.75 and 1.25 times speed, then smoothed over time with a Gaussian filter.</p></div></section><section class="p-section wide"><h2>What it learned</h2><div class="prose" style="max-width:none"><div class="compare"><figure><div class="frame ratio-4x3 paper"><img src="../assets/img/hr-loss.png" alt="Training and validation loss" loading="lazy"></div><figcaption>Training and validation loss</figcaption></figure><figure><div class="frame ratio-4x3 paper"><img src="../assets/img/hr-accuracy.png" alt="Validation accuracy by epoch" loading="lazy"></div><figcaption>Validation accuracy by epoch</figcaption></figure></div><p>The most confused pairs tell the story. Early in training, mistakes were random, like PARENTS for HIPPOPOTAMUS. By epoch 3, the model only confused signs that look or mean alike, such as TEACHER and PROFESSOR, or JOURNEY and TRIP. A few pairs, like SKETCH and DRAW or SKILL and TALENT, stayed hard throughout, because the signs themselves are nearly identical.</p><div class="compare"><figure><div class="frame ratio-square paper"><img src="../assets/img/hr-confusion-01.png" alt="Most confused signs, epoch 1: unrelated pairs" loading="lazy"></div><figcaption>Most confused signs, epoch 1: unrelated pairs</figcaption></figure><figure><div class="frame ratio-square paper"><img src="../assets/img/hr-confusion-16.png" alt="Most confused signs, epoch 16: similar signs only" loading="lazy"></div><figcaption>Most confused signs, epoch 16: similar signs only</figcaption></figure></div></div></section><section class="p-section"><h2>My part</h2><div class="prose"><p>I built the pipeline that segments continuous signing into sentences and words, which made it possible to evaluate the system at both levels. I also ran the early evaluation of pose extractors, comparing MediaPipe Hands and ViTPose, which set the keypoint approach the final model is built on.</p><p class="muted" style="font-size:14px">Arunima Srivastav led the GRU classifier and training pipeline. Daniel Reichfeld built the first classifier versions and the LLaMA translation script.</p></div></section></div>
+<nav class="next" aria-label="More projects"><a class="btn" href="../#work">All work</a><a class="next-link" href="spectral.html"><span class="muted" style="font-size:13px">Next project</span><span class="next-title">Spectral Path Tracer</span></a></nav>
+</main>
+<footer class="footer" id="contact"><div class="wrap footer-inner">
+<div style="display:flex;flex-direction:column;gap:8px"><img class="footer-logo" src="../assets/img/logo-cream.svg" alt="Olivia Doman monogram" width="54" height="48"><h2>Let's make something.</h2><span class="email">olivia.d.doman@gmail.com</span></div>
+<div class="footer-links"><a href="https://www.linkedin.com/in/oliviadoman/">LinkedIn</a><a href="https://github.com/oliviadoman">GitHub</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a></div>
+</div></footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

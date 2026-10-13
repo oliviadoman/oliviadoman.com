@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Olivia Doman</title>
+<meta name="description" content="Olivia Doman, software engineer in visual computing: rendering, simulation, and generative AI tools for film and virtual production.">
+<meta property="og:title" content="Olivia Doman">
+<meta property="og:description" content="Olivia Doman, software engineer in visual computing: rendering, simulation, and generative AI tools for film and virtual production.">
+<meta property="og:image" content="assets/img/parallax-poster.jpg">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#16170f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="./"><img src="assets/img/logo-cream.svg" alt="" width="34" height="30">Olivia Doman</a>
+<nav class="nav-links" aria-label="Main"><a href="./#work">Work</a><a href="./#about">About</a><a href="assets/Olivia_Doman_Resume.pdf">Resume</a><a href="./#contact">Contact</a></nav>
+</div></header>
+<section class="hero" id="hero-px" data-parallax data-range="70" aria-label="Introduction">
+<div class="scene">
+<div class="layer" data-f="0.10" style="background-image:url('assets/parallax/bg.jpg')"></div>
+<div class="layer" data-f="0.35" style="background-image:url('assets/parallax/layer0.webp')"></div>
+<div class="layer" data-f="0.75" style="background-image:url('assets/parallax/layer1.webp')"></div>
+</div>
+<div class="hero-copy"><div class="wrap"><div class="inner">
+<span class="eyebrow">Software Engineer · Visual Computing</span>
+<h1>Olivia Doman</h1>
+<p class="lede">I build rendering, simulation, and generative AI tools for film and virtual production. Stanford Computer Science, Visual Computing.</p>
+<div class="btn-row"><a class="btn solid" href="#work">See my work</a><a class="btn" href="assets/Olivia_Doman_Resume.pdf">Resume</a><a class="btn" href="#contact">Get in touch</a></div>
+</div></div></div>
+<span class="hero-tag">Move your mouse. This forest is my 2.5D parallax pipeline, running live.</span>
+</section>
+
+<div class="wrap" style="display:flex;flex-direction:column;gap:10px;margin-top:20px"></div>
+<main>
+<section class="section" id="work"><div class="wrap">
+<div class="section-head"><h2 data-knot="left">Selected work</h2><span class="muted">Rendering, simulation, and FX</span></div>
+<a class="lead-card" href="work/parallax.html" data-knot="right">
+<div class="frame ratio-wide "><video data-loop muted loop playsinline preload="none" poster="assets/img/parallax-poster.jpg" aria-label="Silent loop"><source src="assets/video/parallax.mp4" type="video/mp4"></video></div>
+<div class="lead-meta"><div><span class="eyebrow">01 · Lead project</span><span class="card-title" style="font-size:clamp(32px,4vw,44px)">2.5D Parallax Pipeline</span><span class="card-line">Turning a single image into a moving, layered background for LED volume stages</span></div><span class="card-tags">Senior project · Depth estimation · Inpainting · Python</span></div>
+</a>
+<div class="grid-2">
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0"><a class="card" href="work/pupper.html" data-knot="left">
+<div class="frame ratio-16x9 "><video data-loop muted loop playsinline preload="none" poster="assets/img/pupper-poster.jpg" aria-label="Silent loop"><source src="assets/video/pupper.mp4" type="video/mp4"></video></div>
+<span class="eyebrow">02</span><span class="card-title">Pupper Pickleball Assistant</span><span class="card-line">A quadruped robot that collects pickleballs on a voice command, then comes to find you</span><span class="card-tags">CS 123 · ROS 2 · YOLOv5 · Team of 3</span>
+</a></div>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0"><a class="card" href="work/handyreader.html">
+<div class="frame ratio-16x9 "><img src="assets/img/handyreader-tile.svg" alt="Diagram of the 21 hand keypoints HandyReader tracks" loading="lazy"></div>
+<span class="eyebrow">03</span><span class="card-title">HandyReader</span><span class="card-line">American Sign Language to English subtitles, from hand keypoints</span><span class="card-tags">CS 231N · PyTorch · MediaPipe · LLaMA</span>
+</a></div>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0"><a class="card" href="work/spectral.html" data-knot="left">
+<div class="frame ratio-16x9 "><img src="assets/img/prism.jpg" alt="Glass prism splitting white light into a rainbow" loading="lazy"></div>
+<span class="eyebrow">04</span><span class="card-title">Spectral Path Tracer</span><span class="card-line">A GPU path tracer that renders real light dispersion</span><span class="card-tags">CS 248A · Slang · with Daniel Reichfeld</span>
+</a></div>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0"><a class="card" href="work/yarn.html">
+<div class="frame ratio-16x9 "><video data-loop muted loop playsinline preload="none" poster="assets/img/yarn-sphere-poster.jpg" aria-label="Silent loop"><source src="assets/video/yarn-sphere.mp4" type="video/mp4"></video></div>
+<span class="eyebrow">05</span><span class="card-title">Crocheted Yarn Sim</span><span class="card-line">Yarn-level physics for loose, stretchy crochet fabric</span><span class="card-tags">Houdini Vellum · Simulation</span>
+</a></div>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0"><a class="card" href="work/flower.html" data-knot="left">
+<div class="frame ratio-16x9 "><img src="assets/img/flower.jpg" alt="Sculpted pink flowers in a glass vase by a window" loading="lazy"></div>
+<span class="eyebrow">06</span><span class="card-title">Flower Still Life</span><span class="card-line">Sculpted, hand-textured flowers lit and rendered in Cycles</span><span class="card-tags">CS 148 · Blender · Cycles</span>
+</a></div>
+</div></div></section>
+<section class="section" id="more"><div class="wrap"><div class="section-head"><h2 data-knot="left">More work</h2><span class="muted">Studies, posters, and team projects</span></div><div class="grid-4" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+<a class="mini card" href="work/diffusion.html"><div class="frame ratio-4x3 "><img src="assets/img/diff-denoise.jpg" alt="Noisy face and its denoised result" loading="lazy"></div><span class="mini-title">Diffusion Models</span><span class="mini-tags">Poster · DDPM · Posterior sampling</span></a>
+<a class="mini card" href="work/vellum.html"><div class="frame ratio-4x3 "><video data-loop muted loop playsinline preload="none" poster="assets/img/vellum-poster.jpg" aria-label="Silent loop"><source src="assets/video/vellum.mp4" type="video/mp4"></video></div><span class="mini-title">Vellum Grains</span><span class="mini-tags">Houdini study</span></a>
+</div><div style="margin-top:14px"></div></div></section>
+<section class="section" id="experience"><div class="wrap">
+<div class="section-head"><h2 data-knot="right">Experience</h2></div>
+<div class="xp">
+<div class="xp-item"><h3>Rodeo FX</h3><span class="xp-role">Software Developer Intern</span><span class="xp-date">Jul 2025 - May 2026 · Venice, CA</span>
+<ul><li>Built and shipped AI-driven image and video tools inside a live, high-end VFX pipeline</li><li>Engineered custom Python and PyTorch ComfyUI nodes with API integrations for artists</li><li>Evaluated outputs with artists against production standards</li></ul></div>
+<div class="xp-item"><h3>AGBO Studios</h3><span class="xp-role">Innovation Pipeline Intern</span><span class="xp-date">Jun 2024 - Sep 2024 · Los Angeles, CA</span>
+<ul><li>Built pipeline automation tools for animation workflows across production teams</li><li>Worked in Maya, Unreal Engine, MetaHumans, Flow, and Rez</li><li>Presented research on emerging tools to technical and executive leadership</li></ul></div>
+<div class="xp-item"><h3>Monolith Studios</h3><span class="xp-role">Student Intern</span><span class="xp-date">Aug 2022 - Sep 2023 · Los Angeles, CA</span>
+<ul><li>Supported LED volume deployment for in-camera VFX</li><li>Worked hands-on with Unreal Engine real-time visualization</li><li>Attended SIGGRAPH 2022 and 2023</li></ul></div>
+</div>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:10px"></div>
+</div></section>
+<section class="section" id="about"><div class="wrap about">
+<div class="portrait"><img src="assets/img/headshot.jpg" alt="Portrait of Olivia Doman" loading="lazy"></div>
+<div class="about-copy">
+<h2 style="font-size:clamp(36px,5vw,52px);font-style:italic" data-knot="right">About</h2>
+<p>I studied Computer Science at Stanford on the Visual Computing track, where I spent most of my time on rendering, simulation, and computer vision. My senior project, advised by Kayvon Fatahalian, asked how far a single image can go as a moving background for LED volume stages.</p>
+<p>Outside of class I have worked where art and engineering meet: generative AI tools for artists at Rodeo FX, pipeline automation at AGBO, and virtual production at Monolith. I like building the tools that let artists move faster without giving up control.</p>
+
+
+<div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">C</span><span class="tag">JavaScript</span><span class="tag">Slang</span><span class="tag">PyTorch</span><span class="tag">Houdini</span><span class="tag">Unreal Engine</span><span class="tag">Maya</span><span class="tag">Blender</span><span class="tag">ComfyUI</span><span class="tag">USD</span></div>
+</div>
+</div></section>
+</main>
+<div class="wrap" style="margin-top:40px;display:flex;flex-direction:column;gap:10px"></div>
+<footer class="footer" id="contact"><div class="wrap footer-inner">
+<div style="display:flex;flex-direction:column;gap:8px"><img class="footer-logo" src="assets/img/logo-cream.svg" alt="Olivia Doman monogram" width="54" height="48"><h2>Let's make something.</h2><span class="email">olivia.d.doman@gmail.com</span></div>
+<div class="footer-links"><a href="https://www.linkedin.com/in/oliviadoman/">LinkedIn</a><a href="https://github.com/oliviadoman">GitHub</a><a href="assets/Olivia_Doman_Resume.pdf">Resume</a></div>
+</div></footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crocheted Yarn Sim · Olivia Doman</title>
+<meta name="description" content="Yarn-level physics for loose, stretchy crochet fabric">
+<meta property="og:title" content="Crocheted Yarn Sim · Olivia Doman">
+<meta property="og:description" content="Yarn-level physics for loose, stretchy crochet fabric">
+<meta property="og:image" content="../assets/img/parallax-poster.jpg">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#16170f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../"><img src="../assets/img/logo-cream.svg" alt="" width="34" height="30">Olivia Doman</a>
+<nav class="nav-links" aria-label="Main"><a href="../#work" aria-current="page">Work</a><a href="../#about">About</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a><a href="../#contact">Contact</a></nav>
+</div></header>
+
+<main class="wrap"><div class="p-head"><a class="back" href="../#work">Back to all work</a><h1>Crocheted Yarn Sim</h1><p class="p-summary">Real crochet stretches a lot because of its loose, looping structure. This simulation uses Houdini's Vellum solver to reproduce that behavior at the level of individual strands.</p></div>
+<div class="p-meta"><div><span>Tools</span><span>Houdini, Vellum</span></div></div>
+<div class="frame ratio-16x9 "><video data-loop muted loop playsinline preload="none" poster="../assets/img/yarn-sphere-poster.jpg" aria-label="Silent loop"><source src="../assets/video/yarn-sphere.mp4" type="video/mp4"></video></div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:20px"></div>
+<div class="p-body"><section class="p-section"><h2>Approach</h2><div class="prose"><p>I built the fabric from crochet stitch geometry and simulated it with Vellum constraints, drawing on research into stitch-level textiles:</p><ul><li>Guo, Lin, Narayanan, McCann. <em>Representing Crochet with Stitch Meshes</em>. SIGGRAPH.</li><li>Kaldor, James, Marschner. <em>Simulating Knitted Cloth at the Yarn Level</em>.</li><li>Ben Watts. <em>Design Through FX</em>. SIGGRAPH 2018.</li></ul></div></section><section class="p-section"><h2>Tuning</h2><div class="prose"><ul><li><strong>Substeps and constraint iterations</strong> tuned for detail and stability.</li><li><strong>Stretch and bend stiffness</strong> calibrated to yarn, so the fabric keeps its shape while it drapes.</li><li><strong>Damping</strong> adjusted so it settles naturally without wobbling.</li></ul></div></section><section class="p-section"><h2>What I would fix next</h2><div class="prose"><p>On the sphere, stretch stiffness had to be high to keep the fabric from sliding off, which introduced small kinks in the yarn. Bend damping reduced them, but some remain. Occasional stray strands also need parameter tweaks or smoothing after the sim.</p><div class="gallery"><figure><div class="frame ratio-16x9 "><video data-loop muted loop playsinline preload="none" poster="../assets/img/yarn-flat-poster.jpg" aria-label="Silent loop"><source src="../assets/video/yarn-flat.mp4" type="video/mp4"></video></div><figcaption>Flat drop test</figcaption></figure></div></div></section></div>
+<nav class="next" aria-label="More projects"><a class="btn" href="../#work">All work</a><a class="next-link" href="flower.html"><span class="muted" style="font-size:13px">Next project</span><span class="next-title">Flower Still Life</span></a></nav>
+</main>
+<footer class="footer" id="contact"><div class="wrap footer-inner">
+<div style="display:flex;flex-direction:column;gap:8px"><img class="footer-logo" src="../assets/img/logo-cream.svg" alt="Olivia Doman monogram" width="54" height="48"><h2>Let's make something.</h2><span class="email">olivia.d.doman@gmail.com</span></div>
+<div class="footer-links"><a href="https://www.linkedin.com/in/oliviadoman/">LinkedIn</a><a href="https://github.com/oliviadoman">GitHub</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a></div>
+</div></footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

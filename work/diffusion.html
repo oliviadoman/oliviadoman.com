@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diffusion Models · Olivia Doman</title>
+<meta name="description" content="Denoising, generation, and image restoration with pretrained diffusion models">
+<meta property="og:title" content="Diffusion Models · Olivia Doman">
+<meta property="og:description" content="Denoising, generation, and image restoration with pretrained diffusion models">
+<meta property="og:image" content="../assets/img/parallax-poster.jpg">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#16170f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../"><img src="../assets/img/logo-cream.svg" alt="" width="34" height="30">Olivia Doman</a>
+<nav class="nav-links" aria-label="Main"><a href="../#work" aria-current="page">Work</a><a href="../#about">About</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a><a href="../#contact">Contact</a></nav>
+</div></header>
+
+<main class="wrap"><div class="p-head"><a class="back" href="../#work">Back to all work</a><h1>Diffusion Models</h1><p class="p-summary">Diffusion models generate images by learning to reverse a gradual noise process. This project explores how pretrained diffusion models handle denoising, generating faces from pure noise, and restoring damaged images.</p></div>
+<div class="p-meta"><div><span>Tools</span><span>PyTorch, pretrained DDPM</span></div><div><span>Format</span><span>Research poster</span></div></div>
+<div class="frame ratio-wide contain"><img src="../assets/img/diff-denoise.jpg" alt="Single step denoising: noisy input and clean output" loading="lazy"></div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:20px"></div>
+<div class="p-body"><section class="p-section"><h2>Approach</h2><div class="prose"><p>In the forward process, noise is added until an image is pure noise. A network learns to predict that noise at each step, and sampling runs the process backward to recover a clean image. For inpainting and deblurring, Diffusion Posterior Sampling keeps each step consistent with the damaged input.</p></div></section><section class="p-section"><h2>Results</h2><div class="prose"><div class="gallery"><figure><div class="frame ratio-wide contain"><img src="../assets/img/diff-denoise.jpg" alt="Single step denoising with a pretrained DDPM. PSNR 32.55, LPIPS 0.093." loading="lazy"></div><figcaption>Single step denoising with a pretrained DDPM. PSNR 32.55, LPIPS 0.093.</figcaption></figure><figure><div class="frame ratio-square contain"><img src="../assets/img/diff-sample.jpg" alt="1000-step sample from pure Gaussian noise" loading="lazy"></div><figcaption>1000-step sample from pure Gaussian noise</figcaption></figure><figure><div class="frame ratio-wide contain"><img src="../assets/img/diff-inpaint.jpg" alt="Inpainting with SDEdit: the masked box is filled with realistic skin and eye" loading="lazy"></div><figcaption>Inpainting with SDEdit: the masked box is filled with realistic skin and eye</figcaption></figure><figure><div class="frame ratio-wide contain"><img src="../assets/img/diff-deblur.jpg" alt="Deblurring a Gaussian blur: core facial structure recovered" loading="lazy"></div><figcaption>Deblurring a Gaussian blur: core facial structure recovered</figcaption></figure></div><div class="table-wrap"><table><thead><tr><th>Noise steps</th><th>300</th><th>500</th><th>700</th></tr></thead><tbody><tr><td>PSNR</td><td>25.72</td><td>29.58</td><td>30.91</td></tr><tr><td>LPIPS</td><td>0.122</td><td>0.087</td><td>0.088</td></tr></tbody></table></div><div class="table-wrap"><table><thead><tr><th>Method</th><th>SDEdit t=500</th><th>ScoreALD [10, 20]</th><th>ScoreALD [20, 10]</th></tr></thead><tbody><tr><td>PSNR</td><td>20.14</td><td>23.13</td><td>19.49</td></tr><tr><td>LPIPS</td><td>0.445</td><td>0.354</td><td>0.341</td></tr></tbody></table></div></div></section></div>
+<nav class="next" aria-label="More projects"><a class="btn" href="../#work">All work</a><a class="next-link" href="vellum.html"><span class="muted" style="font-size:13px">Next project</span><span class="next-title">Vellum Grains</span></a></nav>
+</main>
+<footer class="footer" id="contact"><div class="wrap footer-inner">
+<div style="display:flex;flex-direction:column;gap:8px"><img class="footer-logo" src="../assets/img/logo-cream.svg" alt="Olivia Doman monogram" width="54" height="48"><h2>Let's make something.</h2><span class="email">olivia.d.doman@gmail.com</span></div>
+<div class="footer-links"><a href="https://www.linkedin.com/in/oliviadoman/">LinkedIn</a><a href="https://github.com/oliviadoman">GitHub</a><a href="../assets/Olivia_Doman_Resume.pdf">Resume</a></div>
+</div></footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
