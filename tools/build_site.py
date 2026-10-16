@@ -139,11 +139,12 @@ def card_media(pre, slug, ratio):
 def build_home(pre=''):
     pg = ('Home page', 'index.html')
     o = []
-    o.append(f'''<section class="hero" id="hero-px" data-parallax data-range="70" aria-label="Introduction">
+    o.append(f'''<section class="hero" id="hero-px" data-parallax data-range="70" data-gl="{pre}assets/parallax/v2/" aria-label="Introduction">
 <div class="scene">
-<div class="layer" data-f="0.10" style="background-image:url('{pre}assets/parallax/bg.jpg')"></div>
-<div class="layer" data-f="0.35" style="background-image:url('{pre}assets/parallax/layer0.webp')"></div>
-<div class="layer" data-f="0.75" style="background-image:url('{pre}assets/parallax/layer1.webp')"></div>
+<div class="layer poster" style="background-image:url('{pre}assets/parallax/v2/still.jpg')"></div>
+<div class="layer" data-f="0.10" data-bg="{pre}assets/parallax/bg.jpg"></div>
+<div class="layer" data-f="0.35" data-bg="{pre}assets/parallax/layer0.webp"></div>
+<div class="layer" data-f="0.75" data-bg="{pre}assets/parallax/layer1.webp"></div>
 </div>
 <div class="hero-copy"><div class="wrap"><div class="inner">
 <span class="eyebrow">Software Engineer · Visual Computing</span>
@@ -278,8 +279,21 @@ def page(slug):
                             '<div class="gallery">' + fig(pre, 'px-depth-anything.jpg', 'Depth Anything V2', ratio='ratio-wide') + fig(pre, 'px-depth-midas.jpg', 'MiDaS', ratio='ratio-wide') + fig(pre, 'px-depth-zoe.jpg', 'ZoeDepth', ratio='ratio-wide') + '</div>'))
         body.append(section('Where it breaks', '<div class="compare">' + fig(pre, 'threshold-small', 'Small camera move (±25px): clean', kind='vid', ratio='ratio-wide') + fig(pre, 'threshold-large', 'Large camera move (±150px): edges and seams show', kind='vid', ratio='ratio-wide') + '</div>'
                             '<ul><li><strong>Up to 30px:</strong> no visible artifacts, production ready</li><li><strong>30 to 80px:</strong> slight edge fringing, acceptable for wide shots</li><li><strong>Past 80px:</strong> hard cutout edges, not usable</li></ul>'))
+        body.append(section('Version 2: layers with depth',
+                            '<p>The biggest limit in the original pipeline is that every layer is a flat card, so anything with real depth inside one layer, like the ground or a leaning trunk, slides as one piece. After the paper, I rebuilt the layering so each layer keeps the shape of its own depth, cleaned up the layer edges, and wrote a metric to measure the result instead of judging it only by eye.</p>'
+                            '<div class="compare">' + fig(pre, 'px-v1-large', 'Version 1: flat layers, ±150px camera', kind='vid', ratio='ratio-wide') + fig(pre, 'px-v2-large', 'Version 2: layers with depth, same camera path', kind='vid', ratio='ratio-wide') + '</div>'
+                            '<div class="table-wrap"><table class="compact"><thead><tr><th>Camera move</th><th>Version 1</th><th>Version 2</th></tr></thead><tbody>'
+                            '<tr><td>Small, ±25px</td><td>13.3</td><td>7.3</td></tr>'
+                            '<tr><td>Medium, ±75px</td><td>24.5</td><td>10.8</td></tr>'
+                            '<tr><td>Large, ±150px</td><td>33.9</td><td>16.1</td></tr></tbody></table></div>'
+                            '<p class="muted" style="font-size:14px">Numbers are edge error: the average color difference (0 to 255) near depth edges, measured against a per-pixel depth warp of the original photo. Lower is better. Both versions use the same Stable Diffusion inpainting and camera path.</p>'
+                            '<div class="callout"><span class="eyebrow">Result</span><span class="big">At the largest camera move, version 2 scores better than version 1 does at the medium move.</span></div>'
+                            '<ul><li><strong>Depth relief.</strong> Each layer is warped by its own smoothed depth, clamped to that layer\'s depth range so thin branches do not stretch.</li>'
+                            '<li><strong>Cleaner edges.</strong> Layer cuts sit at gaps in the depth histogram, alpha follows real image edges with a guided filter, and edge pixels have their background color removed.</li>'
+                            '<li><strong>Measured, not eyeballed.</strong> A new metric scores every camera move, so each change shows up as a number.</li></ul>'
+                            '<p>The honest takeaway: almost all of the gain comes from depth relief. The edge cleanup alone barely changed the score, and the artifacts that remain mostly come from the inpainting.</p>').replace('class="p-section"', 'class="p-section wide"', 1))
         body.append(section('Design decisions', '<ul><li><strong>Union mask inpainting.</strong> Each layer is inpainted using the union of every mask in front of it, which removes ghosted foreground objects on the background.</li><li><strong>Handheld camera path.</strong> Camera motion is built from summed harmonics, like fractional Brownian motion, so it drifts organically instead of sweeping mechanically.</li><li><strong>Edge feathering.</strong> Alpha edges get a 15px Gaussian blur before compositing to soften hard depth cuts.</li></ul>'))
-        lnk = [('Read the paper', PX_REPO + '/blob/main/paper/CS191W_Paper_Doman.pdf'), ('View on GitHub', PX_REPO)]
+        lnk = [('Read the paper', PX_REPO + '/blob/main/paper/CS191W_Paper_Doman.pdf'), ('View on GitHub', PX_REPO), ('Version 2 code', PX_REPO + '/tree/main/parallax_v2')]
         notes = [N('q', 'Your resume mentions real-time Unreal Engine compositing. Do you have Unreal footage? It would be the strongest proof shot on this page.'),
                  N('need', 'Two README fixes on GitHub: the clone link still says YOUR_USERNAME, and the paper link points to a file name that does not exist.'),
                  N('q', 'For the live demo: rebuild with 4 to 6 layers and a cleaner background inpaint? It would look less like cardboard cutouts.')]
